@@ -16,5 +16,7 @@ if [ "$1" = 'consume' ]; then
 fi
 
 if [ "$1" = 'produce' ]; then
+  sleep 1
+  echo "Executing produce.py"
   python produce.py
 fi

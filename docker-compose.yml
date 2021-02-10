@@ -1,6 +1,5 @@
 #
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
+# Licensed to the Apache Software Foundation (ASF) under one # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
 # regarding copyright ownership.  The ASF licenses this file
 # to you under the Apache License, Version 2.0 (the
@@ -46,7 +45,6 @@ services:
   python_pulsar_consumer:
     build: .
     image: 'python-pulsar'
-    env_file: ./.env
     environment:
       PROTOCOL_URL: 'pulsar://standalone:6650'
     depends_on:
@@ -58,13 +56,10 @@ services:
     image: 'python-pulsar'
     stdin_open: true
     tty: true
-    env_file: ./.env
     environment:
       PROTOCOL_URL: 'pulsar://standalone:6650'
     depends_on:
       - 'standalone'
     entrypoint: [ /entrypoint.sh, produce ]
-
-
 
 

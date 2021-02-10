@@ -13,11 +13,12 @@ def main():
     client.close()
 
 def consumer_routine(consumer):
-    while True:
-        msg = consumer.receive()
-        print("Received message '{}' id='{}'".format(msg.data(), msg.message_id()))
-        consumer.acknowledge(msg)
-        #time.sleep(2)
+    try:
+        while True:
+            msg = consumer.receive()
+            print("Received message '{}' id='{}'".format(msg.data(), msg.message_id()))
+            consumer.acknowledge(msg)
+            #time.sleep(2)
     except KeyboardInterrupt:
         print('interrupted!')
 
