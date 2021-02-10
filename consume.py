@@ -9,18 +9,21 @@ def main():
     client = pulsar.Client(protocol_url)
     consumer = client.subscribe('my-topicc', 'my-subscription')
 
-    consumer_routine(consumer)
-    client.close()
+    try:
+        consumer_routine(consumer)
+    except KeyboardInterrupt:
+        client.close()
+
 
 def consumer_routine(consumer):
-    try:
-        while True:
-            msg = consumer.receive()
+    while True:
+        try:
+            msg = consumer.receive(1000)
             print("Received message '{}' id='{}'".format(msg.data(), msg.message_id()))
             consumer.acknowledge(msg)
-            #time.sleep(2)
-    except KeyboardInterrupt:
-        print('interrupted!')
+        except:
+            continue
 
 
 main()
+

@@ -21,7 +21,7 @@ version: '2'
 services:
 
   standalone:
-    image: apachepulsar/pulsar
+    image: apachepulsar/pulsar-all
     expose:
       - 8080
       - 6650
@@ -41,12 +41,12 @@ services:
     environment:
       - SERVICE_URL=http://standalone:8080
 
-
   python_pulsar_consumer:
     build: .
     image: 'python-pulsar'
     environment:
-      PROTOCOL_URL: 'pulsar://standalone:6650'
+      #PROTOCOL_URL: 'pulsar://standalone:6650'
+      PROTOCOL_URL: 'pulsar://host.docker.internal:6650'
     depends_on:
       - 'standalone'
     entrypoint: [ /entrypoint.sh, consume ]
@@ -57,7 +57,8 @@ services:
     stdin_open: true
     tty: true
     environment:
-      PROTOCOL_URL: 'pulsar://standalone:6650'
+      #PROTOCOL_URL: 'pulsar://standalone:6650'
+      PROTOCOL_URL: 'pulsar://host.docker.internal:6650'
     depends_on:
       - 'standalone'
     entrypoint: [ /entrypoint.sh, produce ]

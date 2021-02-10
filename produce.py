@@ -14,9 +14,10 @@ def main():
                                       batching_enabled=True,
                                       batching_max_publish_delay_ms=10)
 
-    producer_routine(producer)
-
-    client.close()
+    try:
+        producer_routine(producer)
+    except KeyboardInterrupt:
+        client.close()
 
 
 def producer_routine(producer):
